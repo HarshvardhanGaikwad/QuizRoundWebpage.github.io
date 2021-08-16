@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+  .open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+</style>
+<body style="background-image:url('vector.jpg');background-size:30% 40%;background-position: right; background-repeat: no-repeat;">
+
+    <header class="text-gray-900 body-font" style="background-color: mediumpurple;"> 
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+          <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <img src="q1.jpg" style="height: 42px;width: 42px;margin-bottom: -10px;margin-right: 20px; border-radius: 10px;">
+            <!-- <span onclick="window.location='https://quantumhunts.com/'" class="ml-3 text-xl" >Quantumhunts</span> -->
+           
+          
+          
+          
+          
+          </a>
+          <form autocomplete="off-none">
+            <div class="input-group" data-children-count="1">
+                <input type="text" class="form-control genericsearch" id="search-box" placeholder="Jobs, People, Courses" autocomplete="off">
+                <span class="mdi mdi-magnify"></span>
+                <div class="input-group-append">
+                    <button class="btn btn-warning text-dark font-weight-bold" type="submit">Search</button>
+                </div>
+            </div>
+            <div id="suggesstion-box" class="w-45" style="padding-top:5px;position:absolute;z-index:1002;max-width:400px;margin-left: 20px; width:400px;overflow:wrap;overflow-wrap: break-word;">
+            </div>
+
+        </form>
+          <nav class="md:ml-auto md:ml-3 md:py-1 md:pl-3 md:border-l md:border-gray-400	flex flex-wrap items-end text-base justify-content-end">
+            <a class="ml-3 text-white hover:text-blue-900">Courses</a>
+            <a class="ml-3 text-white  hover:text-blue-900">People</a>
+            <a class="ml-3 text-white hover:text-blue-900">Recruit</a>
+            <a class="ml-3 text-white hover:text-blue-900">Jobs</a>
+          </nav>
+          <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base ml-3 mt-6 md:mt-0">Login
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+    <section class="text-gray-600 body-font">
+        <div class="container px-500 py-24 ml-1 flex flex-wrap">
+          <div class="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
+            <div class="h-full w-6 absolute inset-0 flex items-center justify-center">
+              <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+            </div>
+            <div class="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-purple-500 text-white relative z-10 title-font font-medium text-sm">1</div>
+            <div class="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
+              <div class="flex-shrink-0 w-24 h-24 bg-purple-100 text-purple-500 rounded-full inline-flex items-center justify-center">
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-12 h-12" viewBox="0 0 24 24">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              </div>
+              <div class="flex-grow sm:pl-6 mt-6 sm:mt-0">
+                <a href="https://quantumhunts.com/course/HR-training-bootcamp" class="font-medium title-font text-gray-900 hover:text-blue-900 mb-1 text-xl">HR BOOTCAMP Course</a>
+                <p class="leading-relaxed">Weekly based live sessions also to know and clear the queries by great mentors.
+                   <br>Fee refundable.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="flex relative pb-20 sm:items-center md:w-2/3 mx-auto">
+            <div class="h-full w-6 absolute inset-0 flex items-center justify-center">
+              <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+            </div>
+            <div class="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-purple-500 text-white relative z-10 title-font font-medium text-sm">2</div>
+            <div class="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
+              <div class="flex-shrink-0 w-24 h-24 bg-purple-100 text-purple-500 rounded-full inline-flex items-center justify-center">
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-12 h-12" viewBox="0 0 24 24">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
+              </div>
+              <div class="flex-grow sm:pl-6 mt-6 sm:mt-0">
+                <a class="font-medium title-font text-gray-900 hover:text-blue-900 mb-1 text-xl">The Quiz Round</a>
+                <p class="leading-relaxed">You will have only 15 seconds per each question.<br>
+                  2. Once you select your answer, it can't be undone.<br>
+                  3. You can't select any option once time goes off.<br>
+                  4. You can't exit from the Quiz while you're playing.<br>
+                  5. You'll get points on the basis of your correct answers.</p>
+              </div>
+            </div>
+          </div>
+          <div class="flex relative pb-20 sm:items-center md:w-2/3 mx-auto">
+            <div class="h-full w-6 absolute inset-0 flex items-center justify-center">
+              <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+            </div>
+            <div class="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-purple-500 text-white relative z-10 title-font font-medium text-sm">3</div>
+            <div class="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
+              <div class="flex-shrink-0 w-24 h-24 bg-purple-100 text-purple-500 rounded-full inline-flex items-center justify-center">
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-12 h-12" viewBox="0 0 24 24">
+                  <circle cx="12" cy="5" r="3"></circle>
+                  <path d="M12 22V8M5 12H2a10 10 0 0020 0h-3"></path>
+                </svg>
+              </div>
+              <div class="flex-grow sm:pl-6 mt-6 sm:mt-0">
+                <button onclick="openForm()" class="font-medium title-font text-gray-900 hover:text-blue-900 mb-1 text-xl">Get your Certificate</button>
+                <p class="leading-relaxed">After the Quiz Round Fill the form enter your details and <br> the certificate will be generated and be mailed to <br> your given mailid.</p>
+                
+
+<div class="form-popup" id="myForm">
+  <form action="/action_page.php" class="form-container">
+    <h1 src="">Get your Certificate</h1>
+    <label for="name"><b>Name</b></label>
+    <input type="text" placeholder="Enter Name" name="name" required>
+
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="email" required>
+
+    
+
+    <a type="submit" class="btn" href="certificate.pdf">Submit</a>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
+              
+              
+              
+              </div>
+            </div>
+          </div>
+          
+           
+              
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="start_btn"><button>Start Quiz</button></div>
+      <!-- Info Box -->
+      <div class="info_box">
+        <div class="info-title"><span>Some Rules of this Quiz</span></div>
+        <div class="info-list">
+            <div class="info">1. You will have only <span>15 seconds</span> per each question.</div>
+            <div class="info">2. Once you select your answer, it can't be undone.</div>
+            <div class="info">3. You can't select any option once time goes off.</div>
+            <div class="info">4. You can't exit from the Quiz while you're playing.</div>
+            <div class="info">5. You'll get points on the basis of your correct answers.</div>
+        </div>
+        <div class="buttons">
+            <button class="quit">Exit Quiz</button>
+            <button class="restart">Continue</button>
+        </div>
+    </div>
+      <!-- Quiz Box -->
+      <div class="quiz_box">
+          <header>
+              <div class="title">Awesome Quiz Application</div>
+              <div class="timer">
+                  <div class="time_left_txt">Time Left</div>
+                  <div class="timer_sec">15</div>
+              </div>
+              <div class="time_line"></div>
+          </header>
+          <section>
+              <div class="que_text">
+                  <!-- Here I've inserted question from JavaScript -->
+              </div>
+              <div class="option_list">
+                  <!-- Here I've inserted options from JavaScript -->
+              </div>
+          </section>
+          <!-- footer of Quiz Box -->
+          <footer>
+              <div class="total_que">
+                  <!-- Here I've inserted Question Count Number from JavaScript -->
+              </div>
+              <button class="next_btn">Next Que</button>
+          </footer>
+      </div>
+      <!-- Result Box -->
+      <div class="result_box">
+          <div class="icon">
+              <i class="fas fa-crown"></i>
+          </div>
+          <div class="complete_text">You've completed the Quiz!</div>
+          <div class="score_text">
+              <!-- Here I've inserted Score Result from JavaScript -->
+          </div>
+          <div class="buttons">
+              <button class="restart">Replay Quiz</button>
+              <button class="quit">Quit Quiz</button>
+          </div>
+      </div>
+      <!-- Inside this JavaScript file I've inserted Questions and Options only -->
+      <script src="questions.js"></script>
+      <!-- Inside this JavaScript file I've coded all Quiz Codes -->
+      <script src="script.js"></script>   
+      <footer class="footer bg-dark py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                  <img src="q1.jpg" style="height: 39px;width: 39px; border-radius: 10px;">                    
+                    <p class="text-white-50 mt-4">
+                    QUANTUMHUNTS is a career platform for connecting job seekers and job providers. We help companies build amazing team and build awesome products and services.
+                </div>
+                <div class="col-6 col-lg-2 mt-3 mt-lg-0">
+                    <h5 class="text-white text-uppercase blogmini">Company</h5>
+                    <ul class="list-unstyled pl-0 mb-0 mt-3">
+                        <li class="mt-2"><a href="https://quantumhunts.com/company/about-us/" class="text-white-50">About Us</a></li>
+                        <li class="mt-2"><a href="https://quantumhunts.com/company/solutions/" class="text-white-50">Solutions</a></li>
+                        <li class="mt-2"><a href="https://quantumhunts.com/company/approach/" class="text-white-50">Approach</a></li>
+                        <li class="mt-2"><a href="https://quantumhunts.com/events/" class="text-white-50">Events</a></li>                            
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2 mt-3 mt-lg-0">
+                    <h5 class="text-white text-uppercase blogmini">Career</h5>
+                    <ul class="list-unstyled pl-0 mb-0 mt-3">
+                        <li class="mt-2"><a href="https://quantumhunts.com/careers/culture/" class="text-white-50">Culture</a></li>
+                        <li class="mt-2"><a href="https://quantumhunts.com/company/careers/" class="text-white-50">Careers</a></li>
+                        <li class="mt-2"><a href="https://quantumhunts.com/jobs/" class="text-white-50">Jobs</a></li>                            
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2 mt-3 mt-lg-0">
+                    <h5 class="text-white text-uppercase blogmini">Support</h5>
+                    <ul class="list-unstyled pl-0 mb-0 mt-3">
+                        <li class="mt-2"><a href="" data-toggle="modal" data-target="#help-modal" class="text-white-50">Contact </a></li>
+                        <li class="mt-2"><a href="https://quantumhunts.com/employer/survey/" class="text-white-50">Employer Feedback </a></li>                            
+                        <li class="mt-2"><a href="https://quantumhunts.com/contact/locations/" class="text-white-50">Location</a></li>
+                        <li class="mt-2"><a href="https://quantumhunts.com/company/privacy/" class="text-white-50">Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="mt-1">
+                        <p class="text-white-50 mt-1 text-center mb-0"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
