@@ -32,7 +32,21 @@
     pointer-events: auto;
     transform: translate(-50%, -50%) scale(1);
 }
-
+.next_btn {
+    font-size: 17px;
+    font-weight: 500;
+    color: #8829c7;
+    padding: 8px 15px;
+    outline: none;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    border: 1px solid #8829c7;
+    border-radius: 5px;
+    margin-left: 460px;
+    
+    background: #fff;
+    cursor: pointer;
+}
 .start_btn button{
     font-size: 17px;
     font-weight: 500;
@@ -51,6 +65,7 @@
     border-radius: 5px;
     transform: translate(-50%, -50%) scale(0.9);
     opacity: 0;
+    margin-left: 100px;
     pointer-events: none;
     transition: all 0.3s ease;
 }
@@ -109,6 +124,8 @@
     border-radius: 5px;
     transform: translate(-50%, -50%) scale(0.9);
     opacity: 0;
+    margin-left: 100px;
+
     pointer-events: none;
     transition: all 0.3s ease;
 }
@@ -258,6 +275,8 @@ section .option_list .option .icon{
     padding: 25px 30px;
     width: 450px;
     align-items: center;
+    margin-left: 100px;
+
     flex-direction: column;
     justify-content: center;
     transform: translate(-50%, -50%) scale(0.9);
